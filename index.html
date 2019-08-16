@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+    <title>Books Store</title>
+    <script src="lib/angular.min.js"></script>
+    <script src='lib/angular-route.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <link href="lib/bootstrap.min.css" rel="stylesheet" />
+
+    <script>
+      var app = angular.module("myapp", ["ngRoute"]);
+      app.config(function($routeProvider) {
+        $routeProvider.when("/checkout", {
+          templateUrl: "views/checkout.html"
+        });
+        $routeProvider.when("/book", {
+          templateUrl: "views/booklist.html"
+        });
+        $routeProvider.otherwise({ templateUrl: "views/booklist.html" });
+      });
+    </script>
+    
+    <script src="controllers/app.js"></script>
+    
+    <script src="filters/customFilter.js"></script>
+    <script src="controllers/bookListController.js"></script>
+    <script src="directives/cartSummary/directive.js"></script>
+    <script src="services/cart.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+    
+    
+</head>
+<body ng-controller="mainCtrl">
+
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">Books Store</a>
+        <cart-summary></cart-summary>
+        <w3-test-directive></w3-test-directive>
+    </div>
+
+    <div class="alert alert-danger" ng-show="data.error">
+        Error ({{ data.error.status }}). The book data was not load.
+        <a href="./index.html" class="alert-link">Click here to try again</a>
+    </div>
+    <div ng-view></div>
+
+
+
+    <!-- <div class="panel row"  ng-controller="bookCtrl" ng-hide="data.error">
+            <div class="col-xs-3 well">
+            <a ng-click="selectCategory()" class="btn btn-block btn-lg">Home</a>
+            <a
+                ng-repeat='item in data.books |orderBy:"category"|unique:"category"'
+                ng-click="selectCategory(item)"
+                class="btn btn-block btn-lg"
+                ng-class="getCategoryClass(item)"
+                >{{ item }}
+            </a>
+            </div>
+        <div class="col-xs-8">
+           <div class="well" ng-repeat="item in data.books |filter: categoryFilterFn">
+               <h3>
+                   <strong>{{item.name}}</strong>
+                   <span class="pull-right label label-primary">
+                        {{item.price | currency}}
+                   </span>
+               </h3>
+               <button ng-click="addBookToCart(item)" class="btn btn-success pull-right">
+                    Add Cart
+                </button>
+               <span class="lead">{{item.description}}</span>
+           </div>
+        </div>
+    </div> -->
+</body>
+</html>
